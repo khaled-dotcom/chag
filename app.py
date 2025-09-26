@@ -3,8 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 st.title("Khaled Chat Online 🤖")
 
-# للتست فقط
-HUGGINGFACE_TOKEN = "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"
+HUGGINGFACE_TOKEN = "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"  # your token
 
 @st.cache_resource
 def load_model():
@@ -25,8 +24,7 @@ def chat(user_input):
     outputs = model.generate(**inputs, max_length=100)
     return tokenizer.decode(outputs[0], skip_special_tokens=True)
 
-user_input = st.text_input("اكتب كلامك هنا:")
+user_input = st.text_input("Your message:")
 
-if st.button("أرسل"):
-    reply = chat(user_input)
-    st.write(reply)
+if st.button("Send"):
+    st.write(chat(user_input))
