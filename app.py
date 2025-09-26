@@ -1,22 +1,17 @@
 import streamlit as st
-from transformers import AutoModelForCausalLM, AutoTokenizer
+import requests
 
 st.title("Khaled Chat Online 🤖")
 
-@st.cache_resource
-def load_model():
-    tokenizer = AutoTokenizer.from_pretrained("khaledghalwash/khaled_chatkkj")
-    model = AutoModelForCausalLM.from_pretrained("khaledghalwash/khaled_chatkkj")
-    return tokenizer, model
+API_URL = "https://api-inference.huggingface.co/models/khaledghalwash/khaled_chatkkj"
 
-tokenizer, model = load_model()
+def query_model(prompt):
+    response = requests.post(API_URL, json={"inputs": prompt})
+    # Some models return a dict with 'generated_text'
+    return response.json()[0]['generated_text']
 
-def chat(user_input):
-    inputs = tokenizer(user_input, return_tensors="pt")
-    outputs = model.generate(**inputs, max_length=100)
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-user_input = st.text_input("Your message:")
+user_input = st.text_input("Write your message:")
 
 if st.button("Send"):
-    st.write(chat(user_input))
+    reply = query_model(user_input)
+    st.write(reply)
