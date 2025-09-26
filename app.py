@@ -3,7 +3,6 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 st.title("Khaled Chat Online 🤖")
 
-HUGGINGFACE_TOKEN = "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"  # your token
 
 @st.cache_resource
 def load_model():
