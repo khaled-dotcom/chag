@@ -3,17 +3,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 st.title("Khaled Chat Online 🤖")
 
-
 @st.cache_resource
 def load_model():
-    tokenizer = AutoTokenizer.from_pretrained(
-        "khaledghalwash/khaled_chatkkj",
-        use_auth_token=HUGGINGFACE_TOKEN
-    )
-    model = AutoModelForCausalLM.from_pretrained(
-        "khaledghalwash/khaled_chatkkj",
-        use_auth_token=HUGGINGFACE_TOKEN
-    )
+    tokenizer = AutoTokenizer.from_pretrained("khaledghalwash/khaled_chatkkj")
+    model = AutoModelForCausalLM.from_pretrained("khaledghalwash/khaled_chatkkj")
     return tokenizer, model
 
 tokenizer, model = load_model()
