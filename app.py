@@ -3,14 +3,12 @@ import requests
 
 st.title("Khaled Chat Online 🤖")
 
-# Hugging Face Inference API URL
 API_URL = "https://api-inference.huggingface.co/models/khaledghalwash/khaled_chatkkj"
 
-# Your token (for testing purposes only)
+# Hardcoded token for testing
 HEADERS = {"Authorization": "Bearer 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"}
 
 def query_model(prompt):
-    """Send prompt to Hugging Face Inference API and return generated text"""
     try:
         response = requests.post(API_URL, headers=HEADERS, json={"inputs": prompt})
         response.raise_for_status()
@@ -22,10 +20,8 @@ def query_model(prompt):
     except Exception as e:
         return f"Error: {e}"
 
-# User input
 user_input = st.text_input("Write your message:")
 
-# Send button
 if st.button("Send"):
     reply = query_model(user_input)
     st.write(reply)
